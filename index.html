@@ -59,14 +59,15 @@
     display: inline-block;
     transform: rotate(-2deg);
     cursor: pointer;
-    transition: all 0.5s ease;
+    transition: all 1s ease; /* smooth transition for zoom */
   }
 
   .polaroid img {
-    width: 250px;
+    width: 320px; /* bigger initial size */
     height: auto;
     display: block;
     border-radius: 4px;
+    transition: all 1s ease; /* smooth image zoom */
   }
 
   .caption {
@@ -74,6 +75,25 @@
     font-size: 18px;
     color: #e60073;
     font-style: italic;
+    transition: all 1s ease; /* smooth caption move */
+  }
+
+  .fullscreen {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) rotate(0deg) !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .fullscreen img {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0 !important;
   }
 
   .heart {
@@ -160,21 +180,10 @@ function showPolaroid(){
     </div>
   `;
 
-  // Polaroid click zoom fullscreen
+  // Polaroid click smooth zoom fullscreen
   const imgContainer = document.getElementById("polaroidFull");
   imgContainer.addEventListener("click",()=>{
-    imgContainer.style.position="fixed";
-    imgContainer.style.top="50%";
-    imgContainer.style.left="50%";
-    imgContainer.style.transform="translate(-50%,-50%) rotate(0deg)";
-    imgContainer.style.width="100vw";
-    imgContainer.style.height="100vh";
-    imgContainer.style.borderRadius="0";
-    imgContainer.style.boxShadow="none";
-
-    const img = imgContainer.querySelector("img");
-    img.style.width="100%";
-    img.style.height="100%";
+    imgContainer.classList.add("fullscreen");
   });
 
   launchConfetti();
