@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tajhanae 💘</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+      max-width: 360px;
+      z-index: 2;
+    }
+
+    h1 { color: #e60073; margin-bottom: 10px; }
+    p { color: #555; margin-bottom: 20px; }
+
+    button {
+      padding: 14px 28px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 10px;
+      transition: all 0.3s ease;
+    }
+
+    #yesBtn { background:#ff4d6d; color:white; }
+    #noBtn { background:#ccc; }
+
+    iframe { margin-top:20px; border-radius:12px; }
+
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity:0.7; }
+      100% { transform: translateY(-110vh); opacity:0; }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      animation: confettiFall 3s linear forwards;
+    }
+
+    @keyframes confettiFall {
+      to { transform: translateY(110vh) rotate(720deg); opacity:0; }
+    }
+
+    .polaroid {
+      background: white;
+      padding: 12px 12px 35px 12px;
+      border-radius: 6px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+      display: inline-block;
+      margin: 18px 0;
+      transform: rotate(-2deg);
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .polaroid img {
+      width: 220px;
+      height: auto;
+      border-radius: 4px;
+      display: block;
+    }
+
+    .polaroid-caption {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #777;
+      font-style: italic;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(15px) rotate(-2deg); }
+      to { opacity: 1; transform: translateY(0) rotate(-2deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1 id="title">Will you be my Valentine? 💕</h1>
+    <p id="subtitle">I have a question for you…</p>
+
+    <button id="yesBtn" onclick="handleInteraction(true)">Yes 💖</button>
+    <button id="noBtn" onclick="handleInteraction(false)">No 😢</button>
+
+    <iframe
+      id="spotify"
+      style="display:none"
+      src="https://open.spotify.com/embed/search/True%20Love%20Wizkid"
+      width="100%"
+      height="152"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+    </iframe>
+  </div>
+
+  <script>
+    let noScale = 1, yesScale = 1, noClicks = 0;
+    let fullscreenEntered = false, musicShown = false;
+
+    function vibrate() {
+      if (navigator.vibrate) navigator.vibrate(60);
+    }
+
+    function enterFullscreen() {
+      if (!fullscreenEntered && document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+        fullscreenEntered = true;
+        document.getElementById("title").innerText = "Tajhanae 💘";
+        document.getElementById("subtitle").innerText =
+          "There’s something I’ve been meaning to ask you…";
+      }
+    }
+
+    function handleInteraction(isYes) {
+      vibrate();
+      enterFullscreen();
+      isYes ? sayYes() : clickedNo();
+    }
+
+    function clickedNo() {
+      noClicks++;
+      noScale -= 0.15;
+      yesScale += 0.2;
+
+      const noBtn = document.getElementById("noBtn");
+      const yesBtn = document.getElementById("yesBtn");
+      const subtitle = document.getElementById("subtitle");
+
+      if (noClicks === 1) subtitle.innerText = "You sure about that? 😏";
+      if (noClicks === 2) subtitle.innerText = "Hmm… think again 💭";
+      if (noClicks === 3) subtitle.innerText = "At this point, it’s destiny 😌";
+      if (noClicks >= 4) subtitle.innerText = "Okay… ‘No’ isn’t an option 😈";
+
+      if (noScale <= 0.1) noBtn.style.display = "none";
+      else noBtn.style.transform = `scale(${noScale})`;
+
+      yesBtn.style.transform = `scale(${yesScale})`;
+
+      if (!musicShown) {
+        document.getElementById("spotify").style.display = "block";
+        musicShown = true;
+      }
+    }
+
+    function sayYes() {
+      launchConfetti();
+      document.body.innerHTML = `
+        <div style="text-align:center;">
+          <h1 style="color:#e60073;">Tajhanae 💘</h1>
+
+          <div class="polaroid">
+            <img src="https://i.postimg.cc/BbSGWFhn/IMG-0979.jpg" alt="Tajhanae">
+            <div class="polaroid-caption">my favorite view 🤍</div>
+          </div>
+
+          <h2>You’re officially my Valentine 🥰</h2>
+          <p><strong>Screenshot this.</strong> I’m serious 😌</p>
+
+          <iframe
+            src="https://open.spotify.com/embed/search/True%20Love%20Wizkid"
+            width="300"
+            height="380"
+            style="border-radius:12px;"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+          </iframe>
+        </div>
+      `;
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    function launchConfetti() {
+      for (let i = 0; i < 120; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.background = `hsl(${Math.random()*360},100%,50%)`;
+        c.style.animationDuration = (Math.random()*2+2)+"s";
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 3000);
+      }
+    }
+
+    setInterval(createHeart, 400);
+  </script>
+
+</body>
+</html>
