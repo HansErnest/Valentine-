@@ -132,7 +132,7 @@
 </head>
 <body>
 
-<div class="card">
+<div class="card" id="valentineCard">
   <h1 id="title">Will you be my Valentine? 💕</h1>
   <p id="subtitle">I have a question for you…</p>
 
@@ -199,6 +199,18 @@ function showPolaroid(){
   });
 
   launchConfetti();
+
+  // Double-tap anywhere to return
+  let lastTap = 0;
+  document.body.addEventListener("touchend", function(e) {
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTap;
+    if(tapLength < 300 && tapLength > 0){
+      // Double-tap detected
+      window.location.reload(); // reload the page to go back to card
+    }
+    lastTap = currentTime;
+  });
 }
 
 function createHeart(){
