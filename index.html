@@ -41,8 +41,6 @@
     #yesBtn { background:#ff4d6d; color:white; }
     #noBtn { background:#ccc; }
 
-    iframe { margin-top:20px; border-radius:12px; }
-
     .heart {
       position: absolute;
       bottom: -20px;
@@ -107,12 +105,13 @@
     <button id="yesBtn" onclick="handleInteraction(true)">Yes 💖</button>
     <button id="noBtn" onclick="handleInteraction(false)">No 😢</button>
 
+    <!-- Spotify iframe hidden initially -->
     <iframe
       id="spotify"
       style="display:none"
-      src="https://open.spotify.com/embed/search/True%20Love%20Wizkid"
+      src="https://open.spotify.com/embed/track/6gBFPUFcJLzWGx4lenP6h2"
       width="100%"
-      height="152"
+      height="80"
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
     </iframe>
   </div>
@@ -169,7 +168,6 @@
     function sayYes() {
       launchConfetti();
 
-      // Fullscreen Polaroid setup
       document.body.innerHTML = `
         <div id="yesScreen" style="text-align:center; position:relative; height:100vh; display:flex; justify-content:center; align-items:center; background:linear-gradient(to right,#ff9a9e,#fad0c4);">
           <img id="polaroidFull" src="https://i.postimg.cc/BbSGWFhn/IMG-0979.jpg" alt="Tajhanae" style="
@@ -183,15 +181,14 @@
           ">
         </div>
         <iframe
-          src="https://open.spotify.com/embed/search/True%20Love%20Wizkid"
+          src="https://open.spotify.com/embed/track/6gBFPUFcJLzWGx4lenP6h2"
           width="300"
-          height="380"
+          height="80"
           style="border-radius:12px; position:absolute; bottom:20px; left:50%; transform:translateX(-50%);"
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
         </iframe>
       `;
 
-      // Click to zoom Polaroid fullscreen
       const img = document.getElementById("polaroidFull");
       img.addEventListener("click", () => {
         img.style.position = "fixed";
