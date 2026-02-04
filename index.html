@@ -2,160 +2,229 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Tajhanae 💘</title>
 <style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: #ffc3a0;
-  overflow: hidden;
-}
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, #ffafbd, #ffc3a0);
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 
-.card {
-  background: white;
-  padding: 5vw;
-  border-radius: 5vw;
-  box-shadow: 0 3vw 8vw rgba(0,0,0,0.25);
-  max-width: 90vw;
-  transition: opacity 0.5s ease;
-  z-index: 2;
-}
+  .card {
+    background: white;
+    padding: 5vw;
+    border-radius: 5vw;
+    box-shadow: 0 3vw 8vw rgba(0,0,0,0.25);
+    max-width: 90vw;
+    z-index: 2;
+  }
 
-h1 { font-size: 8vw; color:#e60073; margin-bottom:3vw; }
-p { font-size:5vw; color:#555; margin-bottom:5vw; }
+  h1 {
+    color: #e60073;
+    margin-bottom: 3vw;
+    font-size: 8vw;
+  }
 
-button {
-  padding:3vw 6vw;
-  font-size:5vw;
-  border:none;
-  border-radius:5vw;
-  cursor:pointer;
-  margin:2vw;
-}
+  p {
+    color: #555;
+    margin-bottom: 5vw;
+    font-size: 5vw;
+  }
 
-#yesBtn { background:#ff4d6d; color:white; }
-#noBtn { background:#ccc; }
+  button {
+    padding: 3vw 6vw;
+    font-size: 5vw;
+    border: none;
+    border-radius: 5vw;
+    cursor: pointer;
+    margin: 2vw;
+    transition: all 0.3s ease;
+  }
 
-.polaroid {
-  position:absolute;
-  background:white;
-  padding:3vw;
-  border-radius:2vw;
-  box-shadow:0 3vw 8vw rgba(0,0,0,0.25);
-  cursor:pointer;
-  max-width:90vw;
-  opacity:0;
-  transition: opacity 0.5s ease;
-  z-index:5;
-}
+  #yesBtn { background:#ff4d6d; color:white; }
+  #noBtn { background:#ccc; }
 
-.polaroid img { width:100%; height:auto; border-radius:2vw; }
-.caption { font-size:5vw; color:#e60073; margin-top:2vw; }
-.message { font-size:6vw; color:#e60073; opacity:0; transition: opacity 0.5s ease; }
+  .polaroid {
+    background: white;
+    padding: 3vw 3vw 10vw 3vw;
+    border-radius: 2vw;
+    box-shadow: 0 3vw 8vw rgba(0,0,0,0.25);
+    display: inline-block;
+    transform: rotate(-2deg);
+    cursor: pointer;
+    transition: all 1s ease;
+    max-width: 90vw;
+  }
 
-#loveLetter {
-  position:fixed;
-  top:0; left:0; width:100%; height:100%;
-  background:#ffe6ea;
-  display:flex; justify-content:center; align-items:center;
-  opacity:0; pointer-events:none; transition: opacity 0.5s ease;
-  z-index:10;
-}
+  .polaroid img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 2vw;
+    transition: all 1s ease;
+  }
 
-#loveLetter.active { opacity:1; pointer-events:auto; }
+  .caption {
+    margin-top: 2vw;
+    font-size: 5vw;
+    color: #e60073;
+    font-style: italic;
+    transition: all 1s ease;
+  }
 
-.letter {
-  background:#fff5e6;
-  padding:8vw 6vw;
-  border-radius:5vw;
-  max-width:90vw;
-  text-align:center;
-}
+  .message {
+    font-size: 6vw;
+    color: #e60073;
+    margin-bottom: 3vw;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
 
-.letter h2 {
-  font-family:'Verdana',sans-serif; font-size:6vw; color:#e60000;
-  margin-bottom:4vw; letter-spacing:0.2em;
-}
+  .fullscreen {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) rotate(0deg) !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
 
-.letter p { font-family:'Georgia',serif; font-size:4.5vw; color:#333; line-height:1.6em; }
+  .fullscreen img {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0 !important;
+  }
+
+  .heart {
+    position: absolute;
+    bottom: -5vw;
+    font-size: 7vw;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0); opacity:0.7; }
+    100% { transform: translateY(-110vh); opacity:0; }
+  }
+
+  .confetti {
+    position: absolute;
+    width: 2.5vw;
+    height: 2.5vw;
+    animation: confettiFall 3s linear forwards;
+  }
+
+  @keyframes confettiFall {
+    to { transform: translateY(110vh) rotate(720deg); opacity:0; }
+  }
 </style>
 </head>
 <body>
 
-<!-- Valentine Card -->
-<div class="card" id="valentineCard">
-  <h1>Will you be my Valentine? 💕</h1>
-  <p>I have a question for you…</p>
-  <button id="yesBtn">Yes 💖</button>
-  <button id="noBtn">No 😢</button>
-</div>
+<div class="card">
+  <h1 id="title">Will you be my Valentine? 💕</h1>
+  <p id="subtitle">I have a question for you…</p>
 
-<!-- Polaroid -->
-<div class="polaroid" id="polaroidFull">
-  <div class="message" id="yesMessage">No was never an option 💖</div>
-  <img src="https://i.postimg.cc/BbSGWFhn/IMG-0979.jpg" alt="Tajhanae">
-  <div class="caption">Tajhanae 💕</div>
-</div>
-
-<!-- Love Letter -->
-<div id="loveLetter">
-  <div class="letter">
-    <h2>WORDS FROM MY HEART</h2>
-    <p>
-      I just wanted to remind you how much you mean to me. Every day with you feels warmer, brighter, and a little more magical.<br><br>
-      Thank you for the laughs, the late nights, and the quiet moments in between. No matter where life takes us, you are my favourite place to return to.<br><br>
-      I'm so grateful for you. Always.<br>
-      I love you so much
-    </p>
-  </div>
+  <button id="yesBtn" onclick="handleInteraction(true)">Yes 💖</button>
+  <button id="noBtn" onclick="handleInteraction(false)">No 😢</button>
 </div>
 
 <script>
-const yesBtn = document.getElementById("yesBtn");
-const card = document.getElementById("valentineCard");
-const polaroid = document.getElementById("polaroidFull");
-const message = document.getElementById("yesMessage");
-const loveLetter = document.getElementById("loveLetter");
-const letter = loveLetter.querySelector(".letter");
+let noScale = 1, yesScale = 1, noClicks = 0;
+let fullscreenEntered = false;
 
-// Yes button click
-yesBtn.addEventListener("click", () => {
-  card.style.opacity = 0;
-  setTimeout(()=>{
-    card.style.display = "none";
-    polaroid.style.opacity = 1;
-  },500);
+function vibrate() { if(navigator.vibrate) navigator.vibrate(60); }
 
-  setTimeout(()=>{ message.style.opacity = 1; },700);
-
-  // Show love letter after 2.5s
-  setTimeout(()=>{
-    polaroid.style.opacity = 0;
-    setTimeout(()=>{
-      loveLetter.classList.add("active");
-    },700);
-  },2500);
-});
-
-// Double-tap to return
-let lastTap = 0;
-document.addEventListener("touchend", ()=>{
-  const currentTime = new Date().getTime();
-  const tapLength = currentTime - lastTap;
-  if(tapLength < 300 && tapLength > 0){
-    loveLetter.classList.remove("active");
-    polaroid.style.opacity = 0;
-    card.style.display = "block";
-    setTimeout(()=>{ card.style.opacity = 1; },50);
+function enterFullscreen() {
+  if (!fullscreenEntered && document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen();
+    fullscreenEntered = true;
   }
-  lastTap = currentTime;
-});
+}
+
+function handleInteraction(isYes){
+  vibrate();
+  enterFullscreen();
+  if(isYes) showPolaroid();
+  else clickedNo();
+}
+
+function clickedNo() {
+  noClicks++;
+  noScale -= 0.15;
+  yesScale += 0.2;
+
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const subtitle = document.getElementById("subtitle");
+
+  if(noClicks===1) subtitle.innerText="You sure about that? 😏";
+  if(noClicks===2) subtitle.innerText="Hmm… think again 💭";
+  if(noClicks===3) subtitle.innerText="At this point, it’s destiny 😌";
+  if(noClicks>=4) subtitle.innerText="Okay… ‘No’ isn’t an option 😈";
+
+  if(noScale<=0.1) noBtn.style.display="none";
+  else noBtn.style.transform=`scale(${noScale})`;
+  yesBtn.style.transform=`scale(${yesScale})`;
+}
+
+function showPolaroid(){
+  document.body.innerHTML = `
+    <div id="yesScreen" style="position:relative; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(to bottom right,#ffafbd,#ffc3a0);">
+      <div class="message" id="yesMessage">No was never an option 💖</div>
+      <div class="polaroid" id="polaroidFull">
+        <img src="https://i.postimg.cc/BbSGWFhn/IMG-0979.jpg" alt="Tajhanae">
+        <div class="caption">Tajhanae 💕</div>
+      </div>
+    </div>
+  `;
+
+  const msg = document.getElementById("yesMessage");
+  setTimeout(()=>{ msg.style.opacity = 1; }, 100);
+
+  const imgContainer = document.getElementById("polaroidFull");
+  imgContainer.addEventListener("click",()=>{
+    imgContainer.classList.add("fullscreen");
+  });
+
+  launchConfetti();
+}
+
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="❤️";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.animationDuration=(Math.random()*3+4)+"s";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+}
+
+function launchConfetti(){
+  for(let i=0;i<120;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+    c.style.animationDuration=(Math.random()*2+2)+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3000);
+  }
+}
+
+setInterval(createHeart,400);
 </script>
+
 </body>
 </html>
