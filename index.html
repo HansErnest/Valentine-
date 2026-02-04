@@ -50,7 +50,6 @@
   #yesBtn { background:#ff4d6d; color:white; }
   #noBtn { background:#ccc; }
 
-  /* Polaroid styling */
   .polaroid {
     background: white;
     padding: 15px 15px 50px 15px;
@@ -59,15 +58,15 @@
     display: inline-block;
     transform: rotate(-2deg);
     cursor: pointer;
-    transition: all 1s ease; /* smooth transition for zoom */
+    transition: all 1s ease;
   }
 
   .polaroid img {
-    width: 320px; /* bigger initial size */
+    width: 320px;
     height: auto;
     display: block;
     border-radius: 4px;
-    transition: all 1s ease; /* smooth image zoom */
+    transition: all 1s ease;
   }
 
   .caption {
@@ -75,7 +74,7 @@
     font-size: 18px;
     color: #e60073;
     font-style: italic;
-    transition: all 1s ease; /* smooth caption move */
+    transition: all 1s ease;
   }
 
   .fullscreen {
@@ -180,7 +179,6 @@ function showPolaroid(){
     </div>
   `;
 
-  // Polaroid click smooth zoom fullscreen
   const imgContainer = document.getElementById("polaroidFull");
   imgContainer.addEventListener("click",()=>{
     imgContainer.classList.add("fullscreen");
@@ -189,7 +187,6 @@ function showPolaroid(){
   launchConfetti();
 }
 
-// Floating hearts
 function createHeart(){
   const heart = document.createElement("div");
   heart.className="heart";
@@ -200,7 +197,6 @@ function createHeart(){
   setTimeout(()=>heart.remove(),6000);
 }
 
-// Confetti
 function launchConfetti(){
   for(let i=0;i<120;i++){
     const c=document.createElement("div");
