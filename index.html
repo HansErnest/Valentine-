@@ -77,6 +77,14 @@
     transition: all 1s ease;
   }
 
+  .message {
+    font-size: 1.8em;
+    color: #e60073;
+    margin-bottom: 20px;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+
   .fullscreen {
     position: fixed !important;
     top: 50% !important;
@@ -172,6 +180,7 @@ function clickedNo() {
 function showPolaroid(){
   document.body.innerHTML = `
     <div id="yesScreen" style="position:relative; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(to bottom right,#ffafbd,#ffc3a0);">
+      <div class="message" id="yesMessage">No was never an option 💖</div>
       <div class="polaroid" id="polaroidFull">
         <img src="https://i.postimg.cc/BbSGWFhn/IMG-0979.jpg" alt="Tajhanae">
         <div class="caption">Tajhanae 💕</div>
@@ -179,6 +188,11 @@ function showPolaroid(){
     </div>
   `;
 
+  // Fade in the message
+  const msg = document.getElementById("yesMessage");
+  setTimeout(()=>{ msg.style.opacity = 1; }, 100);
+
+  // Smooth zoom fullscreen
   const imgContainer = document.getElementById("polaroidFull");
   imgContainer.addEventListener("click",()=>{
     imgContainer.classList.add("fullscreen");
