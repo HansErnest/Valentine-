@@ -59,6 +59,7 @@
     transition: all 0.7s ease;
     opacity:0;
     z-index:5;
+    will-change: transform, opacity;
   }
 
   .polaroid img { width:100%; height:auto; border-radius:2vw; }
@@ -93,6 +94,7 @@
     background:#fff5e6; padding:8vw 6vw; border-radius:5vw;
     max-width:90vw; text-align:center; box-shadow:0 2vw 5vw rgba(0,0,0,0.2);
     position:relative; opacity:0; transform:translateY(20px); transition:all 1s ease;
+    will-change: transform, opacity;
   }
 
   #loveLetter.active .letter { opacity:1; transform:translateY(0); }
@@ -113,9 +115,10 @@
     .letter h2{font-size:3em;} .letter p{font-size:1.3em;}
   }
 
-  /* Floating hearts */
+  /* Floating hearts (optimized) */
   .heart {
     position:absolute; font-size:4vw; animation: floatUp linear infinite; opacity:0.7; pointer-events:none;
+    will-change: transform, opacity;
   }
 
   @keyframes floatUp {
@@ -124,7 +127,7 @@
     100% { transform: translateY(-10vh) scale(1); opacity:0; }
   }
 
-  /* Washi tape sparkles */
+  /* Washi tape sparkles (2 sparkles for performance) */
   .washi-sparkle-container {
     position:absolute;
     top:-4vw; left:50%;
@@ -144,10 +147,8 @@
     animation: sparkle 2s infinite;
   }
 
-  .washi-sparkle:nth-child(1){ left:5%; animation-delay:0s; }
-  .washi-sparkle:nth-child(2){ left:25%; animation-delay:0.5s; }
-  .washi-sparkle:nth-child(3){ left:50%; animation-delay:1s; }
-  .washi-sparkle:nth-child(4){ left:75%; animation-delay:1.5s; }
+  .washi-sparkle:nth-child(1){ left:20%; animation-delay:0s; }
+  .washi-sparkle:nth-child(2){ left:60%; animation-delay:1s; }
 
   @keyframes sparkle {
     0% { opacity:0; transform:scale(0.3); }
@@ -170,7 +171,7 @@
 <!-- Polaroid -->
 <div class="polaroid" id="polaroidFull">
   <div class="message" id="yesMessage">No was never an option 💖</div>
-  <img src="https://i.postimg.cc/BbSGWFhn/IMG-0979.jpg" alt="Tajhanae">
+  <img src="https://i.postimg.cc/BbSGWFhn/IMG-0979.jpg" alt="Tajhanae" style="max-width:800px;">
   <div class="caption">Tajhanae 💕</div>
 </div>
 
@@ -179,8 +180,6 @@
   <div class="letter">
     <!-- Washi Tape Sparkles -->
     <div class="washi-sparkle-container">
-      <div class="washi-sparkle"></div>
-      <div class="washi-sparkle"></div>
       <div class="washi-sparkle"></div>
       <div class="washi-sparkle"></div>
     </div>
@@ -203,8 +202,9 @@ const message = document.getElementById("yesMessage");
 const loveLetter = document.getElementById("loveLetter");
 const letter = loveLetter.querySelector(".letter");
 
-// Floating hearts
+// Floating hearts optimized
 function createHeart(){
+  if(document.querySelectorAll('.heart').length > 20) return; // max 20 hearts at a time
   const heart = document.createElement("div");
   heart.className = "heart";
   heart.innerHTML = Math.random()<0.5 ? "❤️" : "💖";
@@ -214,7 +214,7 @@ function createHeart(){
   document.body.appendChild(heart);
   setTimeout(()=>heart.remove(),8000);
 }
-setInterval(createHeart, 400);
+setInterval(createHeart, 1000);
 
 // Yes button click
 yesBtn.addEventListener("click", () => {
