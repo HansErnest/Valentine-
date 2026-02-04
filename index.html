@@ -1,79 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Tajhanae 💘</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #ff9a9e, #fad0c4);
-      height: 100vh;
-      margin: 0;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<title>Tajhanae 💘</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, #ffafbd, #ffc3a0);
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 
-    .card {
-      background: white;
-      padding: 50px;
-      border-radius: 25px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-      max-width: 400px;
-      z-index: 2;
-    }
+  .card {
+    background: white;
+    padding: 50px;
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    max-width: 400px;
+    z-index: 2;
+  }
 
-    h1 { 
-      color: #e60073; 
-      margin-bottom: 15px; 
-      font-size: 2.5em; /* bigger title */
-    }
+  h1 {
+    color: #e60073;
+    margin-bottom: 15px;
+    font-size: 2.5em;
+  }
 
-    p { 
-      color: #555; 
-      margin-bottom: 25px; 
-      font-size: 1.5em; /* bigger subtitle */
-    }
+  p {
+    color: #555;
+    margin-bottom: 25px;
+    font-size: 1.5em;
+  }
 
-    button {
-      padding: 18px 36px;
-      font-size: 22px; /* bigger buttons */
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      margin: 10px;
-      transition: all 0.3s ease;
-    }
+  button {
+    padding: 18px 36px;
+    font-size: 22px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 10px;
+    transition: all 0.3s ease;
+  }
 
-    #yesBtn { background:#ff4d6d; color:white; }
-    #noBtn { background:#ccc; }
+  #yesBtn { background:#ff4d6d; color:white; }
+  #noBtn { background:#ccc; }
 
-    .heart {
-      position: absolute;
-      bottom: -20px;
-      font-size: 28px; /* bigger floating hearts */
-      animation: floatUp 6s linear infinite;
-      opacity: 0.7;
-    }
+  /* Polaroid styling */
+  .polaroid {
+    background: white;
+    padding: 15px 15px 50px 15px;
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    display: inline-block;
+    transform: rotate(-2deg);
+    cursor: pointer;
+    transition: all 0.5s ease;
+  }
 
-    @keyframes floatUp {
-      0% { transform: translateY(0); opacity:0.7; }
-      100% { transform: translateY(-110vh); opacity:0; }
-    }
+  .polaroid img {
+    width: 250px;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+  }
 
-    .confetti {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      animation: confettiFall 3s linear forwards;
-    }
+  .caption {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #e60073;
+    font-style: italic;
+  }
 
-    @keyframes confettiFall {
-      to { transform: translateY(110vh) rotate(720deg); opacity:0; }
-    }
-  </style>
+  .heart {
+    position: absolute;
+    bottom: -20px;
+    font-size: 28px;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0); opacity:0.7; }
+    100% { transform: translateY(-110vh); opacity:0; }
+  }
+
+  .confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    animation: confettiFall 3s linear forwards;
+  }
+
+  @keyframes confettiFall {
+    to { transform: translateY(110vh) rotate(720deg); opacity:0; }
+  }
+</style>
 </head>
 <body>
 
@@ -101,7 +127,7 @@ function enterFullscreen() {
 function handleInteraction(isYes){
   vibrate();
   enterFullscreen();
-  if(isYes) sayYes();
+  if(isYes) showPolaroid();
   else clickedNo();
 }
 
@@ -124,32 +150,35 @@ function clickedNo() {
   yesBtn.style.transform=`scale(${yesScale})`;
 }
 
-function sayYes(){
-  // Clear page and show Polaroid + YouTube embed
+function showPolaroid(){
   document.body.innerHTML = `
-    <div id="yesScreen" style="position:relative; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(to right,#ff9a9e,#fad0c4);">
-      <img id="polaroidFull" src="https://i.postimg.cc/BbSGWFhn/IMG-0979.jpg"
-           style="width:300px; height:auto; border-radius:6px; box-shadow:0 12px 30px rgba(0,0,0,0.25); transition:all 1s ease-in-out; cursor:pointer; margin-bottom:25px;">
-      <iframe width="350" height="200" src="https://www.youtube.com/embed/7DxG33oHjKE?autoplay=1&controls=1"
-        title="True Love by Wizkid"
-        allow="autoplay; encrypted-media"
-        frameborder="0">
+    <div id="yesScreen" style="position:relative; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(to bottom right,#ffafbd,#ffc3a0);">
+      <div class="polaroid" id="polaroidFull">
+        <img src="https://i.postimg.cc/BbSGWFhn/IMG-0979.jpg" alt="Tajhanae">
+        <div class="caption">Tajhanae 💕</div>
+      </div>
+      <iframe id="musicIframe" width="350" height="200" src="https://www.youtube.com/embed/7DxG33oHjKE?autoplay=1&controls=1" 
+        title="True Love by Wizkid" allow="autoplay; encrypted-media" frameborder="0" style="margin-top:20px;">
       </iframe>
     </div>
   `;
 
-  // Polaroid click zoom
-  const img = document.getElementById("polaroidFull");
-  img.addEventListener("click",()=>{
-    img.style.position="fixed";
-    img.style.top="50%";
-    img.style.left="50%";
-    img.style.transform="translate(-50%,-50%) rotate(0deg)";
-    img.style.width="100vw";
-    img.style.height="100vh";
-    img.style.borderRadius="0";
-    img.style.boxShadow="none";
-    img.style.transition="all 1s ease-in-out";
+  // Polaroid click zoom fullscreen
+  const imgContainer = document.getElementById("polaroidFull");
+  imgContainer.addEventListener("click",()=>{
+    imgContainer.style.position="fixed";
+    imgContainer.style.top="50%";
+    imgContainer.style.left="50%";
+    imgContainer.style.transform="translate(-50%,-50%) rotate(0deg)";
+    imgContainer.style.width="100vw";
+    imgContainer.style.height="100vh";
+    imgContainer.style.borderRadius="0";
+    imgContainer.style.boxShadow="none";
+
+    // Expand the inner image to fit fullscreen
+    const img = imgContainer.querySelector("img");
+    img.style.width="100%";
+    img.style.height="100%";
   });
 
   launchConfetti();
